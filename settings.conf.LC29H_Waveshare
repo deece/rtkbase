@@ -1,0 +1,199 @@
+# settings for configure_gps.sh
+
+[general]
+# Version
+version=2.6.1
+# Rtkbase upgrade mandatory "checkpoint"
+checkpoint_version=2.7.0
+# User who runs str2str_file service
+user=
+# NTRIP caster program
+BASEDIR=$(dirname "$0")
+#path to the caster application
+cast=/usr/local/bin/str2str
+#Web frontend port
+web_port=80
+#set true if you want to enter a password to open the web gui.
+web_authentification=true
+#enter here your new password for web gui 
+#(it will be erased during the next web server start)
+new_web_password=
+#don't touch this one
+web_password_hash=pbkdf2:sha256:150000$kWdEE8eU$d30b1a75e5cf898684bad60b47a45a8058b6c33535560be005b6e0110b947cf6
+#key needed to add an aerial image layer
+maptiler_key=
+#Receive prerelease update (beta version)
+prerelease=False
+#Cpu temp offset for Orange Pi Zero LTS (+30°C)
+cpu_temp_offset=0
+
+[main]
+#base coordinates: lat long height
+position='47.0983869 -1.2655108 36.40'
+#gnss receiver com port
+com_port='ttyS0'
+#gnss receiver com port settings
+com_port_settings='115200:8:n:1'
+#receiver model
+receiver='Quectel LC29HBS'
+#gnss receiver format
+receiver_format='rctm3'
+#gnss receiver firmware release
+receiver_firmware=''
+#gnss receiver frequency available
+receiver_carrier=''
+#Antenna info, id, serial number. Without space inside the strings
+antenna_info='ADVNULLANTENNA'
+#tcp port for RAW stream. If you change this value, edit gpsd conf file to reflect the port in DEVICES.
+tcp_port='5015'
+#ext_tcp_source is mainly for dev purpose to receive a raw stream from another base
+ext_tcp_source=''
+#ext_tcp_port is the port used for ext_tcp_source
+ext_tcp_port=''
+#ip address of the integrated web service (ie on Mosaic X5)
+gnss_rcv_web_ip=192.168.3.1
+#port number for the Flask proxy app used to display the Gnss receiver web service
+gnss_rcv_web_proxy_port=9090
+#port number for the raw2nmea service
+nmea_port='5014'
+
+[local_storage]
+
+# File options for local data storage
+
+#gnss data storage directory
+datadir=$BASEDIR/data
+#gnss data filename	    
+file_name='%Y-%m-%d_%h-%M-%S_GNSS-1'
+#file rotate time in hour
+file_rotate_time='24'
+#file overlap time in seconds
+file_overlap_time='0'
+#name for the compressed archive
+archive_name=$(date -d "-1 days" +"%Y-%m-%d_%S").zip
+#archives older than this value (in days) will be deleted by archive_and_clean.sh
+archive_rotate='60'
+#minum free space on device (in MB) before oldest archives are deleted
+min_free_space='500'
+
+[ntrip_A]
+
+# NTRIP A caster options
+
+#ntrip A caster url
+svr_addr_a='caster.centipede.fr'
+#ntrip A caster port
+svr_port_a='2101'
+#ntrip A caster password
+svr_pwd_a=''
+#Mount name
+mnt_name_a='Your_mount_name'
+rtcm_msg_a='1004,1005(10),1006,1008(10),1012,1019,1020,1033(10),1042,1045,1046,1077,1087,1097,1107,1127,1230'
+#Receiver dependent options
+ntrip_a_receiver_options=''
+
+[ntrip_B]
+
+# NTRIP B caster options
+
+#ntrip B caster url
+svr_addr_b='caster.centipede.fr'
+#ntrip B caster port
+svr_port_b='2101'
+#ntrip B caster password
+svr_pwd_b=''
+#Mount name
+mnt_name_b='Your_mount_name'
+rtcm_msg_b='1004,1005(10),1006,1008(10),1012,1019,1020,1033(10),1042,1045,1046,1077,1087,1097,1107,1127,1230'
+#Receiver dependent options
+ntrip_b_receiver_options=''
+
+[local_ntrip_caster]
+
+# local NTRIP caster options
+# These options are needed when you set your base as a NTRIP caster
+
+#user/password credentials to connect to this local caster
+local_ntripc_user=''
+local_ntripc_pwd=''
+#local ntrip port
+local_ntripc_port='2101'
+#mount point name for this local ntrip caster
+local_ntripc_mnt_name=''
+local_ntripc_msg='1004,1005(10),1006,1008(10),1012,1019,1020,1033(10),1042,1045,1046,1077,1087,1097,1107,1127,1230'
+#Receiver dependent options
+local_ntripc_receiver_options=''
+
+[rtcm_svr]
+
+# RTCM server options
+
+#port for rtcm local use
+rtcm_svr_port='5016'
+#messages for rtcm local use
+rtcm_svr_msg='1004,1005(10),1006,1008(10),1012,1019,1020,1033(10),1042,1045,1046,1077,1087,1097,1107,1127,1230'
+#Receiver dependent options
+rtcm_receiver_options=''
+
+[rtcm_client]
+
+# RTCM client options
+
+#port for rtcm client
+rtcm_client_addr=''
+rtcm_client_port='80'
+#user/password credentials to connect to the server
+rtcm_client_user=''
+rtcm_client_pwd=''
+#messages for rtcm client use
+rtcm_client_msg='1004,1005(10),1006,1008(10),1012,1019,1020,1033(10),1042,1045,1046,1077,1087,1097,1107,1127,1230'
+#Receiver dependent options
+rtcm_client_receiver_options=''
+
+[rtcm_udp_svr]
+
+#RTCM UDP Server options
+
+#port for rtcm UDP use
+rtcm_udp_svr_port=''
+#messages for rtcm udp use
+rtcm_udp_svr_msg='1004,1005(10),1006,1008(10),1012,1019,1020,1033(10),1042,1045,1046,1077,1087,1097,1107,1127,1230'
+#Receiver dependent options
+rtcm_udp_svr_receiver_options=''
+
+[rtcm_udp_client]
+
+#RTCM UDP Client options
+
+#address for rtcm UDP
+rtcm_udp_client_addr=''
+#port for rtcm UDP use
+rtcm_udp_client_port=''
+#messages for rtcm udp use
+rtcm_udp_client_msg='1004,1005(10),1006,1008(10),1012,1019,1020,1033(10),1042,1045,1046,1077,1087,1097,1107,1127,1230'
+#Receiver dependent options
+rtcm_udp_client_receiver_options=''
+
+[rtcm_serial]
+
+# Serial output RTCM options
+
+#serial output for rtcm local use
+out_com_port=''
+#serial output settings
+out_com_port_settings='115200:8:n:1'
+#messages for rtcm local use
+rtcm_serial_msg='1004,1005(10),1006,1008(10),1012,1019,1020,1033(10),1042,1045,1046,1077,1087,1097,1107,1127,1230'
+#Receiver dependent options
+rtcm_serial_receiver_options=''
+
+[log]
+
+#log directory
+logdir=$BASEDIR/logs
+#log trace level (0: no trace)
+level=0
+
+[network]
+#lte modem port
+modem_at_port=''
